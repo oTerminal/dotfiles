@@ -13,7 +13,7 @@ echo "127.0.1.1 Skye.localdomain Skye" >> /etc/hosts
 # MAKE SURE TO CHANGE PASSWORD LOL
 echo root:passwordhere | chpasswd
 
-pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools ntfs-3g base-devel reflector snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi xdg-user-dirs xdg-utils gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font
+pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools ntfs-3g base-devel reflector snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi xdg-user-dirs xdg-utils gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager qemu qemu-arch-extra edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font
 
 # Nvidia Drivers.
 pacman -S --noconfirm nvidia-dkms nvidia-utils nvidia-settings
