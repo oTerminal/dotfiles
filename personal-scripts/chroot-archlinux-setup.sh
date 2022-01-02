@@ -27,6 +27,7 @@ pacman -S asusctl linux-g14 linux-g14-headers supergfxctl
 
 # Installing GRUB and making the GRUB config files. 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 systemctl enable NetworkManager
