@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "\e[1;32mWelcome to my Arch Install Script!.\e[0m"
+printf "\e[1;32mWelcome to my Arch Install Script!.\e[0m \n"
 sleep 1
 
 # Timezone.
@@ -77,7 +77,7 @@ systemctl enable acpid
 #systemctl enable power-profiles-daemon.service
 #systemctl enable supergfxd
 
-# MAKE SURE TO CHANGE PASSWORD DUMMY!!!!
+# Creating user.
 printf "\e1;36mWhat do you want your user's name to be? \e0mNo spaces or capital letters allowed in the username."
 read username
 useradd -m $username
