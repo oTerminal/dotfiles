@@ -34,16 +34,15 @@ passwd root
 pacman -S grub networkmanager grub-btrfs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
 
 # Graphics Drivers.
-printf "\e[1;36m What gpu do you have? (amd, nvidia, intel)\e[0m \n"
+printf "\e[1;36m What gpu do you have? (amd, nvidia, intel)\e[0m"
 read gpuname
-
-if [$gpuname == nvidia]
+if [ $gpuname == nvidia ]
 then
-    pacman -S --noconfirm nvidia nvdia-dkms nvidia-utils nvidia-settings
-elif [$gpuname == amd]
+    pacman -S --noconfirm nvidia nvidia-dkms nvidia-utils nvidia-settings
+elif [ $gpuname == amd ]
 then
     pacman -S --noconfirm xf86-video-amdgpu
-elif [$gpuname == intel]
+elif [ $gpuname == intel ]
 then
     pacman -S --noconfirm mesa xf86-video-intel vulkan-intel
 else
