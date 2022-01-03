@@ -19,7 +19,7 @@ locale-gen
 echo LANG=en_US.UTF-8 >> /etc/locale.conf
 
 # Hostname and Hosts file.
-printf "\e1;36mWhat do you want your hostname to be? (Not the username and capital letters can be used.) \n"
+printf "\e[1;36mWhat do you want your hostname to be? (Not the username and capital letters can be used.) \n"
 read hostname
 echo $hostname >> /etc/hostname
 echo "127.0.0.1 $hostname" >> /etc/hosts
@@ -27,14 +27,14 @@ echo "::1 $hostname" >> /etc/hosts
 echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
 
 # Changing root password.
-printf "\e1;36mType in your root password in the below prompt. \n"
+printf "\e[1;36mType in your root password in the below prompt. \n"
 passwd root
 
 # Installing necessary packages for btrfs system.
 pacman -S grub networkmanager grub-btrfs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
 
 # Graphics Drivers.
-printf "\e1;36m What gpu do you have? (amd, nvidia, intel) \n"
+printf "[\e1;36m What gpu do you have? (amd, nvidia, intel) \n"
 read gpuname
 
 if [$gpuname == nvidia]
@@ -78,10 +78,10 @@ systemctl enable acpid
 #systemctl enable supergfxd
 
 # Creating user.
-printf "\e1;36mWhat do you want your user's name to be? \e0mNo spaces or capital letters allowed in the username. \n"
+printf "\e[1;36mWhat do you want your user's name to be? \e0mNo spaces or capital letters allowed in the username. \n"
 read username
 useradd -m $username
-printf "\e1;36m Type in a password for your user in the below prompt. \n"
+printf "\e[1;36m Type in a password for your user in the below prompt. \n"
 passwd $username
 usermod -aG libvirt $username
 
