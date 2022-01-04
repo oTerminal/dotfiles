@@ -31,7 +31,7 @@ printf "\e[1;36mType in your root password in the below prompt.\e[0m \n"
 passwd root
 
 # Installing necessary packages for btrfs system.
-printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience! \n"
+printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience!\e[0m \n"
 sleep 3
 pacman -S grub grub-btrfs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
 
@@ -59,14 +59,15 @@ fi
 #pacman -S asusctl linux-g14 linux-g14-headers supergfxctl
 
 # Setting up systemd-networkd
-printf "\e[1;36mSetting up Internet with systemd-networkd!\e[0m \n"
-ls -1 /sys/class/net | grep -o -E "e\w+" | read wiredinterface
+printf "\e[1;36mInternet Setup with systemd-networkd\e[0m \n"
+sleep 2
+wiredinterface=$(ip l | sed -nr "s/^[0-9]*: //p" | sed -nr "s/:.*$//p" | grep -o -E "\be\w+")
 echo "[Match]" >> /etc/systemd/network/20-wired.network
-echo "Name=$wiredinterface\n" >> /etc/systemd/network/20-wired.network
+echo Name=$wiredinterface\n >> /etc/systemd/network/20-wired.network
 echo "[Network]" >> /etc/systemd/network/20-wired.network
 echo "DHCP=yes" >> /etc/systemd/network/20-wired.network
 
-ls -1 /sys/class/net | grep -o -E "w\w+" | read wirelessinterface
+wirelessinterface=$(ip l | sed -nr "s/^[0-9]*: //p" | sed -nr "s/:.*$//p" | grep -o -E "\bw\w+")
 echo "[Match]" >> /etc/systemd/network/25-wireless.network
 echo "Name=$wirelessinterface\n" >> /etc/systemd/network/25-wireless.network
 echo "[Network]" >> /etc/systemd/network/25-wireless.network
@@ -80,6 +81,7 @@ echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 printf "\e[1;36mEnabling Services!\e[0m \n"
+sleep 1
 systemctl enable systemd-networkd.service
 #systemctl enable NetworkManager
 systemctl enable bluetooth
