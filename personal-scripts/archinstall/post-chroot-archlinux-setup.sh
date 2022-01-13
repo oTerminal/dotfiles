@@ -108,13 +108,14 @@ usermod -aG libvirt $username
 
 echo "$username ALL=(ALL) ALL" >> /etc/sudoers.d/$username
 
+sleep 1
+printf "\e[1;36mIf you use WiFi, after you have rebooted into your new Arch Linux install, type in \"iwctl\" and do these steps\e[0m \n"
+sleep 2
+printf "\e[1;36m\"station $wirelessinterface scan\"\e[0m \n"
+sleep 3
+printf "\e[1;36m\"station $wirelessinterface get-networks\"\e[0m \n"
+sleep 3
+printf "\e[1;36m\"station $wirelessinterface connect yourwifinamehere and you can type in your password when it asks you for it and type exit after you have typed it!\"\e[0m \n"
+sleep 3
 printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
-sleep 1
-printf "\e[1;36mIf you use WiFi, after you have rebooted into your new Arch Linux install, type in \"iwctl\" and do these steps"
-sleep 1
-printf "\e[1;36m\"station $wirelessinterface scan\""
-sleep 1
-printf "\e[1;36m\"station $wirelessinterface get-networks\""
-sleep 1
-printf "\e[1;36m\"station $wirelessinterface connect yourwifinamehere and you can type in your password when it asks you for it and type exit after you have typed it!\""
 sleep 1
