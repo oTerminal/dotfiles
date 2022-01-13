@@ -33,7 +33,7 @@ passwd root
 # Installing necessary packages for btrfs system.
 printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience!\e[0m \n"
 sleep 3
-pacman -S grub grub-btrfs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
+pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
 
 # Graphics Drivers.
 printf "\e[1;36mWhat gpu do you have? (amd, nvidia, intel)\e[0m \n"
@@ -63,16 +63,17 @@ printf "\e[1;36mInternet Setup with systemd-networkd\e[0m \n"
 sleep 2
 wiredinterface=$(ip l | sed -nr "s/^[0-9]*: //p" | sed -nr "s/:.*$//p" | grep -o -E "\be\w+")
 echo "[Match]" >> /etc/systemd/network/20-wired.network
-echo Name=$wiredinterface\n >> /etc/systemd/network/20-wired.network
+echo Name=$wiredinterface >> /etc/systemd/network/20-wired.network
 echo "[Network]" >> /etc/systemd/network/20-wired.network
 echo "DHCP=yes" >> /etc/systemd/network/20-wired.network
 
 wirelessinterface=$(ip l | sed -nr "s/^[0-9]*: //p" | sed -nr "s/:.*$//p" | grep -o -E "\bw\w+")
 echo "[Match]" >> /etc/systemd/network/25-wireless.network
-echo "Name=$wirelessinterface\n" >> /etc/systemd/network/25-wireless.network
+echo "Name=$wirelessinterface" >> /etc/systemd/network/25-wireless.network
 echo "[Network]" >> /etc/systemd/network/25-wireless.network
 echo "DHCP=yes" >> /etc/systemd/network/25-wireless.network
 echo "IgnoreCarrierLoss=3s" >> /etc/systemd/network/25-wireless.network
+printf "\e[1;36mInternet has been setup!\e[0m \n"
 
 # Installing GRUB and making the GRUB config files. 
 printf "\e[1;36mInstalling GRUB!\e[0m \n"
@@ -108,3 +109,12 @@ usermod -aG libvirt $username
 echo "$username ALL=(ALL) ALL" >> /etc/sudoers.d/$username
 
 printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+sleep 1
+printf "\e[1;36mIf you use WiFi, after you have rebooted into your new Arch Linux install, type in \"iwctl\" and do these steps"
+sleep 1
+printf "\e[1;36m\"station $wirelessinterface scan\""
+sleep 1
+printf "\e[1;36m\"station $wirelessinterface get-networks\""
+sleep 1
+printf "\e[1;36m\"station $wirelessinterface connect yourwifinamehere and you can type in your password when it asks you for it and type exit after you have typed it!\""
+sleep 1
