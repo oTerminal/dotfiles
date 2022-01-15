@@ -4,7 +4,7 @@ printf "\e[1;32mWelcome to my Arch Install Script!.\e[0m \n"
 sleep 1
 
 # Timezone.
-printf "\e[1;36mUse your up/down arrow keys to check your timezone and press 'q' when you found your timezone. Make sure you remember it! \e[0mFor example: Europe/Dublin.\e[0m"
+printf "\e[1;36mUse your up/down arrow keys to check your timezone and press 'q' when you found your timezone. Make sure you remember it! \e[0mFor example: Europe/Dublin.\e[0m \n"
 sleep 5
 timedatectl list-timezones | less
 
