@@ -33,7 +33,19 @@ passwd root
 # Installing necessary packages for btrfs system.
 printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience!\e[0m \n"
 sleep 3
-pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware firefox
+pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober linux-zen linux-zen-headers linux-firmware firefox
+
+printf "\e[1;36mWhat cpu do you have? (amd, intel)\e[0m \n"
+read cpuname
+if [ $gpuname == amd ]
+then
+    pacman -S --noconfirm mesa amd-ucode
+elif [ $gpuname == intel ]
+then
+    pacman -S --noconfirm mesa intel-ucode
+else
+    echo "Could not understand the cpu name!"
+fi
 
 # Graphics Drivers.
 printf "\e[1;36mWhat gpu do you have? (amd, nvidia, intel)\e[0m \n"
