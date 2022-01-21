@@ -1,0 +1,10 @@
+{
+    "suggest.noselect": false,
+    "rust-analyzer.diagnostics.disabled": [
+        "missing-unsafe",
+        "unresolved-proc-macro"
+    ],
+    //"rust-analyzer.cargo.loadOutDirsFromCheck": true,
+    //"rust-analyzer.procMacro.enable" : true,
+
+    "rust-analyzer.updates.channel": "nightly"}

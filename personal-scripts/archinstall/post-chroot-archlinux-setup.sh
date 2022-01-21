@@ -33,7 +33,7 @@ passwd root
 # Installing necessary packages for btrfs system.
 printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience!\e[0m \n"
 sleep 3
-pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware
+pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call virt-manager edk2-ovmf bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober terminus-font linux-zen linux-zen-headers linux-firmware firefox
 
 # Graphics Drivers.
 printf "\e[1;36mWhat gpu do you have? (amd, nvidia, intel)\e[0m \n"
@@ -84,8 +84,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 printf "\e[1;36mEnabling Services!\e[0m \n"
 sleep 1
 systemctl enable systemd-networkd.service
-#systemctl enable NetworkManager
 systemctl enable bluetooth
+systemctl enable iwd
+systemctl enable systemd-resolved
 systemctl enable cups.service
 systemctl enable sshd
 systemctl enable avahi-daemon

@@ -21,8 +21,6 @@ set splitbelow
 set splitright
 " Show invisible characters.
 set hidden
-" Dark Background.
-set background=dark
 
 function! BuildComposer(info)
   if a:info.status != 'unchanged' || a:info.force
@@ -37,8 +35,8 @@ endfunction
 
 call plug#begin('~/.vim/plugged')
 
-" Theme for Neovim.
-Plug 'sainnhe/everforest'
+" Themes for Neovim.
+Plug 'arcticicestudio/nord-vim'
 
 " File Tree.
 Plug 'scrooloose/nerdtree'
@@ -67,13 +65,23 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Asynchronous markdown viewer
 Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
+" Rust Lang Enhancer
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+
+" Indentation Lines
+Plug 'Yggdroot/indentLine'
+" ..
+Plug 'skywind3000/asyncrun.vim'
 call plug#end()
 
-let g:everforest_background = 'hard'
-let g:airline_theme = 'everforest'
+let g:airline_theme = 'nord'
 let g:airline_powerline_fonts = 1
-let g:everforest_enable_italic = 1
-let g:everforest_cursor = 'green'
+let g:nord_italic = 1
+
+syntax enable
+set termguicolors
+colorscheme nord
 
 map <C-e> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
