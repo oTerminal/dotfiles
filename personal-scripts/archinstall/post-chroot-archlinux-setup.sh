@@ -30,17 +30,21 @@ echo "127.0.1.1 $hostname.localdomain $hostname" >> /etc/hosts
 printf "\e[1;36mType in your root password in the below prompt.\e[0m \n"
 passwd root
 
-# Installing necessary packages for btrfs system.
+# Installing necessary packages.
 printf "\e[1;36mInstalling only necessary packages to give you a minimal and fast experience!\e[0m \n"
-sleep 3
-pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober linux-zen linux-zen-headers linux-firmware firefox
+pacman -S reflector
+printf "\e[1;36mEnter your country to sync arch linux mirrors.\e[0m \n"
+read country
+reflector -c $country -a 8 --sort rate --save /etc/pacman.d/mirrorlist
+sleep 1
+pacman -S grub grub-btrfs btrfs-progs efibootmgr dialog wpa_supplicant iwd mtools dosfstools ntfs-3g base-devel snapper bluez bluez-utils cups hplip xdg-utils xdg-user-dirs alsa-utils avahi gvfs nfs-utils inetutils dnsutils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync reflector acpi acpi_call bridge-utils dnsmasq vde2 openbsd-netcat iptables-nft sof-firmware nss-mdns acpid os-prober linux-zen linux-zen-headers linux-firmware firefox archlinux-keyring
 
 printf "\e[1;36mWhat cpu do you have? (amd, intel)\e[0m \n"
 read cpuname
-if [ $gpuname == amd ]
+if [ $cpuname == amd ]
 then
     pacman -S --noconfirm mesa amd-ucode
-elif [ $gpuname == intel ]
+elif [ $cpuname == intel ]
 then
     pacman -S --noconfirm mesa intel-ucode
 else
@@ -58,7 +62,7 @@ then
     pacman -S --noconfirm xf86-video-amdgpu
 elif [ $gpuname == intel ]
 then
-    pacman -S --noconfirm mesa xf86-video-intel vulkan-intel
+    pacman -S --noconfirm xf86-video-intel vulkan-intel
 else
     echo "Could not understand the gpu name!"
 fi
@@ -117,12 +121,12 @@ read username
 useradd -m $username
 printf "\e[1;36mType in a password for your user in the below prompt.\e[0m \n"
 passwd $username
-usermod -aG libvirt $username
 
 echo "$username ALL=(ALL) ALL" >> /etc/sudoers.d/$username
 
 sleep 1
 printf "\e[1;36mIf you use WiFi, after you have rebooted into your new Arch Linux install, type in \"iwctl\" and do these steps\e[0m \n"
+wirelessinterface=$(ip l | sed -nr "s/^[0-9]*: //p" | sed -nr "s/:.*$//p" | grep -o -E "\bw\w+")
 sleep 2
 printf "\e[1;36m\"station $wirelessinterface scan\"\e[0m \n"
 sleep 3
@@ -130,5 +134,5 @@ printf "\e[1;36m\"station $wirelessinterface get-networks\"\e[0m \n"
 sleep 3
 printf "\e[1;36m\"station $wirelessinterface connect yourwifinamehere and you can type in your password when it asks you for it and type exit after you have typed it!\"\e[0m \n"
 sleep 3
-printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m"
+printf "\e[1;32mDone! Type exit, umount -a and reboot.\e[0m \n"
 sleep 1
