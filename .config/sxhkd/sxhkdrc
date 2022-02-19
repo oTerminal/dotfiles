@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + p
-	dmenu_run
+	~/.config/rofi/launcher.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -126,18 +126,28 @@ Print
     scrot /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'
 # Screenshot only selection
 super + shift + s
-	scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'
+	flameshot gui
 
 # Backlight
 # Decrease
 XF86MonBrightnessDown
-	brightnessctl set 25.5-
+	~/.local/bin/brightness.sh down
 # Increase
 XF86MonBrightnessUp
-	brightnessctl set +25.5
+	~/.local/bin/brightness.sh up
 
 # Volume Control
 XF86AudioLowerVolume
-	amixer -q sset Master 10%-
+	~/.local/bin/volume.sh down
 XF86AudioRaiseVolume
-	amixer -q sset Master 10%+
+	~/.local/bin/volume.sh up
+XF86AudioMute
+	~/.local/bin/volume.sh mute
+
+	# Emoji Picker
+super + e
+	emoji-picker
+
+# Change Asusctl Profile
+XF86Launch4
+	~/.local/bin/asusctlprofileswitch.sh

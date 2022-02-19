@@ -73,6 +73,13 @@ Plug 'racer-rust/vim-racer'
 Plug 'Yggdroot/indentLine'
 " ..
 Plug 'skywind3000/asyncrun.vim'
+
+" Icons!
+Plug 'ryanoasis/vim-devicons'
+
+" GitHub Copilot
+Plug 'github/copilot.vim'
+
 call plug#end()
 
 let g:airline_theme = 'nord'
@@ -82,6 +89,8 @@ let g:nord_italic = 1
 syntax enable
 set termguicolors
 colorscheme nord
+
+set encoding=UTF-8
 
 map <C-e> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
