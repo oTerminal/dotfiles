@@ -34,7 +34,7 @@ bspc config presel_feedback_color "$color1"
 nitrogen --restore &
 echo schedutil | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor &
 bash ~/.screenlayout/monitors.sh &
-bash .config/polybar/launch.sh --shades
+bash .config/polybar/launch.sh &
 picom --experimental-backends &
 dunst &
 discord-canary --start-minimized &

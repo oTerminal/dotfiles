@@ -151,3 +151,7 @@ super + e
 # Change Asusctl Profile
 XF86Launch4
 	~/.local/bin/asusctlprofileswitch.sh
+
+# Lock computer
+super + alt + l
+	betterlockscreen -l dimblur
