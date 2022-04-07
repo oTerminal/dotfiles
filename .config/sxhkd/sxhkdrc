@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + p
-	~/.config/rofi/launcher.sh
+	~/.config/rofi/bin/launcher_ribbon
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -153,5 +153,5 @@ XF86Launch4
 	~/.local/bin/asusctlprofileswitch.sh
 
 # Lock computer
-super + alt + l
-	betterlockscreen -l dimblur
+alt + shift + l
+    betterlockscreen -l dimblur

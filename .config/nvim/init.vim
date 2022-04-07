@@ -37,10 +37,10 @@ call plug#begin('~/.vim/plugged')
 
 " Themes for Neovim.
 Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 
 " File Tree.
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'kyazdani42/nvim-tree.lua'
 
 " Statusline.
 Plug 'vim-airline/vim-airline'
@@ -55,6 +55,10 @@ Plug 'arzg/vim-rust-syntax-ext'
 Plug 'sheerun/vim-polyglot'
 Plug 'Sirsireesh/vim-dlang-phobos-highlighter'
 Plug 'vim-python/python-syntax'
+
+" Lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
 
 " Autoformatting.
 Plug 'Chiel92/vim-autoformat'
@@ -77,20 +81,58 @@ Plug 'skywind3000/asyncrun.vim'
 " Icons!
 Plug 'ryanoasis/vim-devicons'
 
-" GitHub Copilot
-Plug 'github/copilot.vim'
-
+Plug 'romgrk/barbar.nvim'
+Plug 'kyazdani42/nvim-web-devicons'
 call plug#end()
 
-let g:airline_theme = 'nord'
+let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts = 1
-let g:nord_italic = 1
+let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = "hard"
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_git_hl = 1
 
 syntax enable
 set termguicolors
-colorscheme nord
-
+colorscheme gruvbox
 set encoding=UTF-8
 
-map <C-e> :NERDTreeToggle<CR>
+" map <C-e> :NERDTreeToggle<CR>
+nnoremap <C-e> :NvimTreeToggle<CR>
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Move to previous/next
+nnoremap <silent>    <A-,> :BufferPrevious<CR>
+nnoremap <silent>    <A-.> :BufferNext<CR>
+" Re-order to previous/next
+nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
+nnoremap <silent>    <A->> :BufferMoveNext<CR>
+" Goto buffer in position...
+nnoremap <silent>    <A-1> :BufferGoto 1<CR>
+nnoremap <silent>    <A-2> :BufferGoto 2<CR>
+nnoremap <silent>    <A-3> :BufferGoto 3<CR>
+nnoremap <silent>    <A-4> :BufferGoto 4<CR>
+nnoremap <silent>    <A-5> :BufferGoto 5<CR>
+nnoremap <silent>    <A-6> :BufferGoto 6<CR>
+nnoremap <silent>    <A-7> :BufferGoto 7<CR>
+nnoremap <silent>    <A-8> :BufferGoto 8<CR>
+nnoremap <silent>    <A-9> :BufferLast<CR>
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> :BufferPin<CR>
+" Close buffer
+nnoremap <silent>    <A-c> :BufferClose<CR>
+" Wipeout buffer
+"                          :BufferWipeout<CR>
+" Close commands
+"                          :BufferCloseAllButCurrent<CR>
+"                          :BufferCloseAllButPinned<CR>
+"                          :BufferCloseBuffersLeft<CR>
+"                          :BufferCloseBuffersRight<CR>
+" Magic buffer-picking mode
+nnoremap <silent> <C-s>    :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
