@@ -1,0 +1,98 @@
+/*
+
+    Author: Ethem Turgut | http://github.com/ethmtrgt
+
+ */
+
+configuration {
+    drun-display-format: "{icon} {name}";
+    font: "SF Pro Display 12";
+    modi: "window,run,drun";
+    show-icons: true;
+    icon-theme: "Papirus";
+    terminal: "kitty";
+}
+@theme "/dev/null"
+
+* {
+    accent: #03a5fc;
+    bg: #232136;
+    bg-alt: #6e6a86;
+    fg: #e0def4;
+    fg-alt: #6e6a86;
+    background-color: transparent;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+element {
+    border-radius: 12;
+    padding: 8;
+    text-color: @fg-alt;
+}
+
+element-icon {
+    size: 36;
+    border: 0px;
+}
+
+element selected {
+    text-color: @fg;
+    background-color: @bg-alt-2;
+}
+
+element-text {
+    text-color: inherit;
+    expand: true;
+    vertical-align: 0.5;
+}
+
+entry {
+    background-color: @bg-alt;
+    padding: 12;
+    text-color: @fg;
+}
+
+inputbar {
+    margin: 10;
+    border-radius: 12;
+    children: [entry];
+}
+
+prompt {
+    enabled: true;
+    padding: 12 6 6 12;
+}
+
+message {
+    border: 2 0 0;
+    border-color: @accent;
+    padding: 24;
+}
+
+textbox {
+    text-color: @accent;
+}
+
+listview {
+    background-color: @bg;
+    columns: 1;
+    lines: 8;
+}
+
+mainbox {
+    border: 2px;
+    border-radius: 12px;
+    border-color: #9ccfd8;
+    background-color: @bg;
+    padding: 12;
+    children: [inputbar, message, listview];
+}
+
+window {
+    border-radius: 12px;
+    width: 40%;
+    transparency: "real";
+}

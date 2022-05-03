@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + p
-	~/.config/rofi/bin/launcher_ribbon
+	rofi -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -121,37 +121,22 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # Screenshot
-# Whole 2 monitors
 Print
-    scrot /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -t image/png < $f'
-# Screenshot only selection
-super + shift + s
 	flameshot gui
 
-# Backlight
-# Decrease
-XF86MonBrightnessDown
-	~/.local/bin/brightness.sh down
-# Increase
+# Brightness
 XF86MonBrightnessUp
-	~/.local/bin/brightness.sh up
+	brightnessctl set 5%+
 
-# Volume Control
-XF86AudioLowerVolume
-	~/.local/bin/volume.sh down
+XF86MonBrightnessDown
+	brightnessctl set 5%-
+
+# Volume
 XF86AudioRaiseVolume
-	~/.local/bin/volume.sh up
+	amixer -q sset Master 3%+
+
+XF86AudioLowerVolume
+	amixer -q sset Master 3%-
+
 XF86AudioMute
-	~/.local/bin/volume.sh mute
-
-	# Emoji Picker
-super + e
-	emoji-picker
-
-# Change Asusctl Profile
-XF86Launch4
-	~/.local/bin/asusctlprofileswitch.sh
-
-# Lock computer
-alt + shift + l
-    betterlockscreen -l dimblur
+	amixer -q sset Master toggle
