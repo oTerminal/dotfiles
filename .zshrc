@@ -6,14 +6,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
-export PATH=~/.local/bin:$PATH
-export MAKEFLAGS="-j16"
+
 # Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
+# load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -78,8 +77,16 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git 
-	fast-syntax-highlighting)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+
+# Keep PATH/fpath free of duplicates
+typeset -U PATH path FPATH fpath
+
+# Homebrew (must run before oh-my-zsh so its completions are picked up)
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+
+# Docker CLI completions
+fpath=($HOME/.docker/completions $fpath)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,22 +101,85 @@ source $ZSH/oh-my-zsh.sh
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch $(uname -m)"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias updatemirrors="sudo reflector -c Ireland -c UK -c Germany --age 12 --sort rate --save /etc/pacman.d/mirrorlist"
-alias ls="exa -l --icons --colour=always"
+alias ls="eza -la"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Python 3.14
+export PATH="/Library/Frameworks/Python.framework/Versions/3.14/bin:$PATH"
+
+# Docker Desktop
+export PATH="$PATH:$HOME/.docker/bin"
+
+# JetBrains Toolbox
+export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
+
+# Spicetify
+export PATH="$PATH:$HOME/.spicetify"
+
+# Rust
+export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:$HOMEBREW_PREFIX/opt/rustup/bin"
+
+# Antigravity IDE
+export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
+export GSETTINGS_SCHEMA_DIR="$HOMEBREW_PREFIX/share/glib-2.0/schemas"
+
+# Railway
+source "$HOME/.railway/env"
+
+# Local binaries (uv, jcode, Antigravity CLI)
+export PATH="$HOME/.local/bin:$PATH"
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# fnm
+FNM_PATH="$HOMEBREW_PREFIX/opt/fnm/bin"
+if [ -d "$FNM_PATH" ]; then
+  eval "$(fnm env --shell zsh)"
+fi
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# Java
+export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
+
+# Resend CLI
+export PATH="$HOME/.resend/bin:$PATH"
+
+# Android platform tools
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+
+# Google Cloud SDK
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Google Calendar MCP credentials
+export GOOGLE_OAUTH_CREDENTIALS="$HOME/.config/gcal-mcp/gcp-oauth.keys.json"
+
+# Unity CLI
+. "$HOME/.unity/env"
