@@ -79,11 +79,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
-# Keep PATH/fpath free of duplicates
-typeset -U PATH path FPATH fpath
-
-# Homebrew (must run before oh-my-zsh so its completions are picked up)
-eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+# Environment and PATH live in ~/.zshenv. Re-apply them here because macOS's
+# /etc/zprofile (path_helper) reorders PATH for login shells after ~/.zshenv runs.
+source ~/.zshenv
 
 # Docker CLI completions
 fpath=($HOME/.docker/completions $fpath)
@@ -123,38 +121,8 @@ alias ls="eza -la"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Python 3.14
-export PATH="/Library/Frameworks/Python.framework/Versions/3.14/bin:$PATH"
-
-# Docker Desktop
-export PATH="$PATH:$HOME/.docker/bin"
-
-# JetBrains Toolbox
-export PATH="$PATH:$HOME/Library/Application Support/JetBrains/Toolbox/scripts"
-
-# Spicetify
-export PATH="$PATH:$HOME/.spicetify"
-
-# Rust
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOMEBREW_PREFIX/opt/rustup/bin"
-
-# Antigravity IDE
-export PATH="$HOME/.antigravity-ide/antigravity-ide/bin:$PATH"
-export GSETTINGS_SCHEMA_DIR="$HOMEBREW_PREFIX/share/glib-2.0/schemas"
-
-# Railway
-source "$HOME/.railway/env"
-
-# Local binaries (uv, jcode, Antigravity CLI)
-export PATH="$HOME/.local/bin:$PATH"
-
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # fnm
 FNM_PATH="$HOMEBREW_PREFIX/opt/fnm/bin"
@@ -162,24 +130,5 @@ if [ -d "$FNM_PATH" ]; then
   eval "$(fnm env --shell zsh)"
 fi
 
-# opencode
-export PATH="$HOME/.opencode/bin:$PATH"
-
-# Java
-export PATH="$HOMEBREW_PREFIX/opt/openjdk@21/bin:$PATH"
-
-# Resend CLI
-export PATH="$HOME/.resend/bin:$PATH"
-
-# Android platform tools
-export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
-# Google Cloud SDK
-if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
+# Google Cloud SDK completions
 if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
-
-# Google Calendar MCP credentials
-export GOOGLE_OAUTH_CREDENTIALS="$HOME/.config/gcal-mcp/gcp-oauth.keys.json"
-
-# Unity CLI
-. "$HOME/.unity/env"
